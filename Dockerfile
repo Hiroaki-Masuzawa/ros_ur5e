@@ -1,7 +1,10 @@
 FROM ros:noetic-robot-focal
 RUN sed -i 's@archive.ubuntu.com@ftp.jaist.ac.jp/pub/Linux@g' /etc/apt/sources.list
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt update && \
-    apt install -y \
+    apt install -y  -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" keyboard-configuration
+RUN apt install -y \
         python3-catkin-tools \
         git \
         ros-noetic-gazebo-ros \
