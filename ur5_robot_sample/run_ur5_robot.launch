@@ -1,0 +1,19 @@
+<launch>
+    <arg name="demo_base_dir" default="/userdir/ur5_robot_sample" />
+    <!-- choreonoid -->
+    <arg name="project_file" default="$(arg demo_base_dir)/ur5_robot.cnoid" />
+    <arg name="robot_name" default="ur5" />
+
+    <!-- ros_control -->
+    <param name="robot_description"
+        command="$(find xacro)/xacro --inorder '$(find ur5_description)/urdf/ur5_robot.urdf.xacro'" />
+    
+    <group ns="$(arg robot_name)">
+        <include file="$(find ur5_gazebo)/launch/ur5_controllers.launch" />
+    </group>
+
+    <include file="/choreonoid_ws/src/choreonoid_ros/launch/choreonoid.launch">
+        <arg name="choreonoid_arg" value="$(arg project_file)" />
+    </include>
+
+</launch>
